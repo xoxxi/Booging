@@ -13,9 +13,8 @@ API: Google Books API
 ## 📱 주요 기능 (Features)
 
 - 내 서재: 읽고 있는 책, 읽은 책 관리 및 진행률 표시
-- 소셜 피드: 친구들의 독서 상태, 하이라이트 구절, 코멘트 모아보기
 - 그룹(북클럽): 관심사가 같은 친구들과 그룹 생성 및 활동 공유
-- 검색: 친구 검색 및 도서 검색 기능
+- 메모: 책에 감상 기록
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/e924ba18-4027-49bc-8f01-a9ac1765bff3" width="24%">
