@@ -20,14 +20,14 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
   final TextEditingController _newMemoController = TextEditingController();
   CollectionReference? _memosCollection;
 
-  // 2. [수정] 현재 그룹이 읽는 책 데이터를 담을 Future
+  // 현재 그룹이 읽는 책 데이터를 담을 Future
   late Future<Book?> _currentBookFuture;
 
   @override
   void initState() {
     super.initState();
 
-    // 3. [수정] BookService로 현재 그룹이 읽는 책 정보를 불러옴
+    // BookService로 현재 그룹이 읽는 책 정보를 불러옴
     _currentBookFuture = BookService().fetchBookDetails(widget.group.currentBookId);
 
     final User? user = FirebaseAuth.instance.currentUser;
@@ -100,7 +100,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // 4. [수정] FutureBuilder로 책 데이터를 불러와서 UI를 그림
+                  // FutureBuilder로 책 데이터를 불러와서 UI를 그림
                   FutureBuilder<Book?>(
                     future: _currentBookFuture,
                     builder: (context, snapshot) {
@@ -110,7 +110,7 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                         return Center(child: Text('책 정보를 불러오지 못했습니다: ${snapshot.error}'));
                       } else if (snapshot.hasData && snapshot.data != null) {
                         final book = snapshot.data!;
-                        // 5. [수정] BookDetailPage의 책 정보 UI를 그대로 사용
+                        //  BookDetailPage의 책 정보 UI를 그대로 사용
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -151,8 +151,6 @@ class _GroupDetailPageState extends State<GroupDetailPage> {
                           ],
                         );
                       } else {
-                        // 7. [수정] 바로 이곳이 스크린샷의 오류 메시지입니다.
-                        // bookId가 잘못되면 여기서 null을 반환합니다.
                         return const Center(child: Text('현재 읽는 책 정보를 찾을 수 없습니다.'));
                       }
                     },
