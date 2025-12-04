@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// 1. [추가] Firebase Auth 패키지 임포트
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:booging2/pages/my_home_page.dart';
 import 'package:booging2/pages/signup_page.dart';
@@ -15,7 +14,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // 2. [추가] 로딩 상태
   bool _isLoading = false;
 
   @override
@@ -25,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
     super.dispose();
   }
 
-  // 3. [수정] 로그인 함수 (async/await 사용)
+  // 로그인 함수
   void _login() async {
     final String email = _emailController.text.trim();
     final String password = _passwordController.text.trim();
@@ -35,19 +33,18 @@ class _LoginPageState extends State<LoginPage> {
       return;
     }
 
-    // 4. [추가] 로딩 시작
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // 5. [핵심] Firebase Auth로 로그인
+      // Firebase Auth로 로그인
       await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // 6. [핵심] 로그인 성공 시 MyHomePage로 이동 (이전과 동일)
+      // 로그인 성공 시 MyHomePage로 이동
       if (mounted) {
         Navigator.pushReplacement(
           context,
@@ -56,7 +53,7 @@ class _LoginPageState extends State<LoginPage> {
       }
 
     } on FirebaseAuthException catch (e) {
-      // 7. [핵심] Firebase 오류 처리
+      // Firebase 오류 처리
       String errorMessage;
       if (e.code == 'user-not-found') {
         errorMessage = '등록되지 않은 이메일입니다.';
@@ -69,10 +66,8 @@ class _LoginPageState extends State<LoginPage> {
       }
       _showErrorSnackBar(errorMessage);
     } catch (e) {
-      // 기타 오류
       _showErrorSnackBar('알 수 없는 오류가 발생했습니다: $e');
     } finally {
-      // 8. [추가] 로딩 종료
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -81,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
-  // [추가] 에러 스낵바를 보여주는 헬퍼 함수
+  // 에러 스낵바를 보여주는 헬퍼 함수
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
