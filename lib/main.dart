@@ -13,7 +13,7 @@ void main() async {
   runApp(const BookShelfApp());
 }
 
-// 앱의 최상위 위젯입니다. 전체적인 테마와 시작 페이지를 설정합니다.
+// 앱의 최상위 위젯 전체적인 테마와 시작 페이지를 설정
 class BookShelfApp extends StatelessWidget {
   const BookShelfApp({super.key});
 
@@ -23,11 +23,11 @@ class BookShelfApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.brown,
-        scaffoldBackgroundColor: backgroundcolor, // colors.dart의 색상 사용
-        fontFamily: 'Pretendard', // (폰트가 프로젝트에 추가되었다고 가정)
+        scaffoldBackgroundColor: backgroundcolor,
+        fontFamily: 'Pretendard',
         appBarTheme: AppBarTheme(
           centerTitle: true,
-          backgroundColor: titlecolor, // colors.dart의 색상 사용
+          backgroundColor: titlecolor,
           titleTextStyle: const TextStyle(
             color: Colors.black,
             fontWeight: FontWeight.bold,
