@@ -2,7 +2,6 @@
 
 import 'package:flutter/material.dart';
 import 'package:booging2/models/group.dart';
-// 1. [수정] Book 모델과 BookService 임포트
 import 'package:booging2/models/book.dart';
 import 'package:booging2/services/book_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

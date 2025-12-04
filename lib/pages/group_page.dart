@@ -13,14 +13,12 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-  // ⬇️⬇️ [민지님 수정] ⬇️⬇️
-  // 이 리스트의 currentBookId 값을 "올바른 ID"로 수정해 주세요.
   final List<Group> mygroup = [
     const Group(
       groupName: 'SF 소설 탐험대 🚀',
       currentBookTitle: '듄 (Dune)',
       currentBookCoverUrl: 'https://books.google.com/books/content?id=z56eDwAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
-      currentBookId: 'z56eDwAAQBAJ', // 👈 이 ID가 올바른가요? (예시 ID)
+      currentBookId: 'z56eDwAAQBAJ',
       memberCount: 5,
       hasNewActivity: true,
     ),
@@ -28,12 +26,11 @@ class _GroupPageState extends State<GroupPage> {
       groupName: '주말 독서 모임 📚',
       currentBookTitle: '파친코 1',
       currentBookCoverUrl: 'https://books.google.com/books/content?id=N8lJEAAAQBAJ&printsec=frontcover&img=1&zoom=1&source=gbs_api',
-      currentBookId: 'N8lJEAAAQBAJ', // 👈 이 ID가 올바른가요? (예시 ID)
+      currentBookId: 'N8lJEAAAQBAJ',
       memberCount: 8,
       hasNewActivity: false,
     ),
   ];
-  // ⬆️⬆️ [민지님 수정] ⬆️⬆️
 
   @override
   Widget build(BuildContext context) {
