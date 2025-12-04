@@ -14,9 +14,8 @@ class Book {
   });
 
 
-  // API 응답(JSON)을 Book 객체로 변환해주는 '공장'
+  // API 응답(JSON)을 Book 객체로 변환
   factory Book.fromJson(Map<String, dynamic> json){
-    // API 응답 구조가 복잡해서(items -> volumeInfo -> ...) 이렇게 접근
     final volumeInfo = json['volumeInfo'] ?? {};
     final imageLinks = volumeInfo['imageLinks'] ?? {};
     final List<dynamic> authorsList = volumeInfo['authors'] ?? ['저자 미상'];
