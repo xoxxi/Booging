@@ -4,7 +4,7 @@ import 'package:booging2/services/book_service.dart'; // 2. BookService import
 import 'package:booging2/pages/book_detail_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-// '내 서재' 탭의 UI를 담당하는 위젯입니다.
+// '내 서재' 탭의 UI를 담당하는 위젯
 class MyLibraryPage extends StatefulWidget {
   const MyLibraryPage({super.key});
 
@@ -24,7 +24,6 @@ class _MyLibraryPageState extends State<MyLibraryPage> {
   void initState() {
     super.initState();
     // BookService 인스턴스를 만들고 fetchBooks()를 호출
-    // 이 _booksFuture 변수를 아래 FutureBuilder가 사용합니다.
     _booksFuture = BookService().fetchBooks(query: 'best seller');
     _loadUserName();
   }
@@ -32,7 +31,7 @@ class _MyLibraryPageState extends State<MyLibraryPage> {
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
       setState(() {
-        // 5. [핵심] 회원가입 때 저장한 displayName을 가져옴
+        // 회원가입 때 저장한 displayName을 가져옴
         _userName = user.displayName;
       });
     }
@@ -42,14 +41,13 @@ class _MyLibraryPageState extends State<MyLibraryPage> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // (기존 MyLibraryPage의 build 메서드 내용과 동일)
         const SizedBox(height: 16),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: Align(
             alignment: Alignment.centerLeft,
             child: Text(
-              // 7. [핵심] _userName이 있으면 표시, 없으면 '방문자' 표시
+              // _userName이 있으면 표시, 없으면 '방문자' 표시
               "${_userName ?? '방문자'}님, \n오늘은 어떤 책을 읽으시나요?",
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               textAlign: TextAlign.left,
@@ -58,7 +56,7 @@ class _MyLibraryPageState extends State<MyLibraryPage> {
         ),
         const SizedBox(height: 16),
         Card(
-            elevation: 2, //디자인의 깊이감과 입체감
+            elevation: 2,
             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             child: Padding(
                 padding: const EdgeInsets.all(16),
