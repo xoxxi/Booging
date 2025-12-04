@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:booging2/models/friend.dart'; // Friend 모델 import
-import 'package:booging2/widgets/friend_tile.dart'; // FriendTile 위젯 import
+import 'package:booging2/models/friend.dart';
+import 'package:booging2/widgets/friend_tile.dart';
 
-// '친구 활동' 탭의 UI를 담당하는 위젯입니다.
+// '친구 활동' 탭의 UI를 담당하는 위젯
 class MyFriendPage extends StatefulWidget {
   const MyFriendPage({super.key});
 
@@ -23,7 +23,7 @@ class _MyFriendPageState extends State<MyFriendPage> {
 
   @override
   Widget build(BuildContext context) {
-    // 검색어에 따라 친구 목록을 실시간으로 필터링합니다.
+    // 검색어에 따라 친구 목록을 필터링
     final filtered = myfriend
         .where(
             (friend) => friend.name.toLowerCase().contains(query.toLowerCase()))
@@ -31,8 +31,6 @@ class _MyFriendPageState extends State<MyFriendPage> {
 
     return Column(
       children: [
-        // (기존 MyFriendPage의 build 메서드 내용과 동일)
-        // ... (생략) ...
         Container(
           padding: const EdgeInsets.all(16),
           child: TextField(
@@ -61,7 +59,7 @@ class _MyFriendPageState extends State<MyFriendPage> {
               final friend = filtered[index];
               return FriendTile(
                 friend: friend,
-                dark: false, // 다크 모드 여부를 전달합니다.
+                dark: false, // 다크 모드 여부를 전달
               );
             },
           ),
