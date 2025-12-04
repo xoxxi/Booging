@@ -8,7 +8,7 @@ import 'package:booging2/pages/book_search_page.dart';
 import 'package:booging2/pages/login_page.dart';
 
 
-// 하단 탭을 관리하는 앱의 메인 프레임 위젯입니다.
+// 하단 탭을 관리하는 앱의 메인 프레임 위젯
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key});
 
@@ -19,11 +19,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _selectedIndex = 0;
 
-  // 각 탭에 표시될 페이지 위젯 목록입니다.
+  // 각 탭에 표시될 페이지 위젯 목록
   static const List<Widget> _widgetOptions = <Widget>[
-    MyLibraryPage(), // 0: 내 서재 탭
-    MyFriendPage(), // 1: 친구 활동 탭
-    GroupPage(), // 2: 그룹 읽기
+    MyLibraryPage(), // 내 서재 탭
+    MyFriendPage(), // 친구 활동 탭
+    GroupPage(), // 그룹 읽기
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +35,7 @@ class _MyHomePageState extends State<MyHomePage> {
   void _logout() async {
     await FirebaseAuth.instance.signOut(); // Firebase에서 로그아웃
     if (mounted) {
-      // 3. [핵심] 모든 이전 화면을 지우고 로그인 페이지로 이동
+      //모든 이전 화면을 지우고 로그인 페이지로 이동
       Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => const LoginPage()),
             (Route<dynamic> route) => false, // 모든 이전 경로를 제거
