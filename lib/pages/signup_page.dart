@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// 1. [추가] Firebase Auth 패키지 임포트
 import 'package:firebase_auth/firebase_auth.dart';
 
 class SignupPage extends StatefulWidget {
@@ -10,14 +9,13 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
-  // 2. [추가] 이름(닉네임) 컨트롤러
+  //이름(닉네임) 컨트롤러
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
   TextEditingController();
 
-  // 3. [추가] 로딩 상태
   bool _isLoading = false;
 
   @override
@@ -29,7 +27,7 @@ class _SignupPageState extends State<SignupPage> {
     super.dispose();
   }
 
-  // 4. [수정] 회원가입 함수 (async/await 사용)
+  //회원가입 함수
   void _signup() async {
     final String name = _nameController.text.trim();
     final String email = _emailController.text.trim();
@@ -45,27 +43,26 @@ class _SignupPageState extends State<SignupPage> {
       return;
     }
 
-    // 5. [추가] 로딩 시작
     setState(() {
       _isLoading = true;
     });
 
     try {
-      // 6. [핵심] Firebase Auth로 사용자 생성
+      // Firebase Auth로 사용자 생성
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      // 7. [핵심] 생성된 사용자의 프로필에 '이름' 업데이트
+      // 생성된 사용자의 프로필에 '이름' 업데이트
       User? user = userCredential.user;
       if (user != null) {
         await user.updateDisplayName(name);
         await user.reload(); // 최신 정보 다시 불러오기
       }
 
-      // 8. 성공 시
+      // 성공 시
       if (mounted) { // 위젯이 화면에 있는지 확인
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text('회원가입 성공! 로그인 해주세요.')),
@@ -74,7 +71,7 @@ class _SignupPageState extends State<SignupPage> {
       }
 
     } on FirebaseAuthException catch (e) {
-      // 9. [핵심] Firebase 오류 처리
+      // Firebase 오류 처리
       String errorMessage;
       if (e.code == 'weak-password') {
         errorMessage = '비밀번호가 너무 약합니다.';
@@ -85,10 +82,8 @@ class _SignupPageState extends State<SignupPage> {
       }
       _showErrorSnackBar(errorMessage);
     } catch (e) {
-      // 기타 오류
       _showErrorSnackBar('알 수 없는 오류가 발생했습니다: $e');
     } finally {
-      // 10. [추가] 로딩 종료
       if (mounted) {
         setState(() {
           _isLoading = false;
@@ -97,7 +92,7 @@ class _SignupPageState extends State<SignupPage> {
     }
   }
 
-  // [추가] 에러 스낵바를 보여주는 헬퍼 함수
+  // 에러 스낵바를 보여주는 헬퍼 함수
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
@@ -155,7 +150,7 @@ class _SignupPageState extends State<SignupPage> {
             ),
             const SizedBox(height: 24.0),
 
-            // 12. [수정] 로딩 중일 때 버튼 비활성화
+            // 로딩 중일 때 버튼 비활성화
             _isLoading
                 ? const CircularProgressIndicator()
                 : ElevatedButton(
