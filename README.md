@@ -1,16 +1,18 @@
-# booging2
+#📚 Booging (부깅)
+소셜 리딩 커뮤니티 플랫폼
+친구들과 함께 책장을 공유하고, 인상 깊은 구절에 코멘트를 남기며 소통하는 모바일 애플리케이션입니다.
 
-A new Flutter project.
+##🛠 기술 스택 (Tech Stack)
 
-## Getting Started
+Language/Framework: Flutter (Dart)
 
-This project is a starting point for a Flutter application.
+Backend: Firebase Authentication, Firestore Database
 
-A few resources to get you started if this is your first Flutter project:
+API: Google Books API
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+##📱 주요 기능 (Features)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 내 서재: 읽고 있는 책, 읽은 책 관리 및 진행률 표시
+- 소셜 피드: 친구들의 독서 상태, 하이라이트 구절, 코멘트 모아보기
+- 그룹(북클럽): 관심사가 같은 친구들과 그룹 생성 및 활동 공유
+- 검색: 친구 검색 및 도서 검색 기능
