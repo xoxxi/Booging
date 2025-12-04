@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:booging2/models/book.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-// 1. [추가] Firebase Auth 임포트 (사용자 ID를 가져오기 위해)
 import 'package:firebase_auth/firebase_auth.dart';
 
 class BookDetailPage extends StatefulWidget {
@@ -16,25 +15,24 @@ class BookDetailPage extends StatefulWidget {
 class _BookDetailPageState extends State<BookDetailPage> {
   final TextEditingController _newMemoController = TextEditingController();
 
-  // 2. [변경] 컬렉션을 'late'가 아닌 'nullable' (null일 수 있음)로 변경
+  // 컬렉션을 'late'가 아닌 'nullable' (null일 수 있음)로 변경
   CollectionReference? _memosCollection;
 
   @override
   void initState() {
     super.initState();
 
-    // 3. [변경] 현재 사용자 ID를 가져옴
+    // 현재 사용자 ID를 가져옴
     final User? user = FirebaseAuth.instance.currentUser;
     if (user != null) {
-      // 4. [변경] 사용자 ID가 있으면 컬렉션 경로를 'users/{userId}/...'로 설정
+      //사용자 ID가 있으면 컬렉션 경로를 'users/{userId}/...'로 설정
       _memosCollection = FirebaseFirestore.instance
-          .collection('users')      // 👈 'users' 컬렉션
-          .doc(user.uid)            // 👈 현재 로그인한 사용자 ID
+          .collection('users')      //'users' 컬렉션
+          .doc(user.uid)            // 현재 로그인한 사용자 ID
           .collection('bookMemos')
           .doc(widget.book.id)
           .collection('memos');
     }
-    // 사용자 ID가 없으면(로그아웃 상태) _memosCollection은 null로 유지됩니다.
   }
 
   @override
@@ -43,7 +41,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     super.dispose();
   }
 
-  // [추가] 에러 스낵바 함수
+  //에러 스낵바 함수
   void _showErrorSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(content: Text(message), backgroundColor: Colors.red),
@@ -51,7 +49,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   }
 
   void _addNewMemo() async {
-    // 5. [추가] 컬렉션이 null(로그아웃 상태)이면 저장 안 함
+    // 컬렉션이 null(로그아웃 상태)이면 저장 안 함
     if (_memosCollection == null) {
       _showErrorSnackBar("로그인이 필요합니다.");
       return;
@@ -63,7 +61,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     }
 
     try {
-      // 6. [변경] _memosCollection! (null이 아님을 확신)
+      //  _memosCollection! (null이 아님을 확신)
       await _memosCollection!.add({
         'text': memoText,
         'createdAt': FieldValue.serverTimestamp(),
@@ -93,7 +91,6 @@ class _BookDetailPageState extends State<BookDetailPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  // ( ... 기존 책 정보 UI ... )
                   Center(
                     child: Column(
                       children: [
@@ -118,7 +115,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
                   ),
                   const SizedBox(height: 16),
 
-                  // 7. [변경] _memosCollection을 확인
+                  //  _memosCollection을 확인
                   _buildMemoList(),
 
                   const SizedBox(height: 50),
@@ -127,7 +124,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
             ),
           ),
 
-          // 8. [변경] 입력창도 로그인 상태에 따라 달라짐
+          // 입력창도 로그인 상태에 따라 달라짐
           _buildMemoInput(),
         ],
       ),
@@ -135,7 +132,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   }
 
   Widget _buildMemoList() {
-    // 9. [변경] 컬렉션이 null이면 '로그인 필요' 메시지 표시
+    // 컬렉션이 null이면 '로그인 필요' 메시지 표시
     if (_memosCollection == null) {
       return const Center(
         child: Text('메모를 보려면 로그인이 필요합니다.', style: TextStyle(color: Colors.grey)),
@@ -143,7 +140,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     }
 
     return StreamBuilder<QuerySnapshot>(
-      // 10. [변경] _memosCollection! (null이 아님을 확신)
+      //  _memosCollection! (null이 아님을 확신)
       stream: _memosCollection!.orderBy('createdAt', descending: true).snapshots(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -176,7 +173,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
     );
   }
 
-  // 11. [변경 없음] _buildMemoTile (메모 내용, 시간 표시)
+  // _buildMemoTile (메모 내용, 시간 표시)
   Widget _buildMemoTile(String memoText, Timestamp? timestamp) {
     String formattedTime = '시간 정보 없음';
     if (timestamp != null) {
@@ -207,9 +204,9 @@ class _BookDetailPageState extends State<BookDetailPage> {
     );
   }
 
-  // 12. [변경] '새 메모' 입력창
+  // '새 메모' 입력창
   Widget _buildMemoInput() {
-    // 13. [추가] 로그인 상태 확인
+    // 로그인 상태 확인
     final bool isLoggedIn = _memosCollection != null;
 
     return Container(
@@ -231,19 +228,19 @@ class _BookDetailPageState extends State<BookDetailPage> {
               child: TextField(
                 controller: _newMemoController,
                 decoration: InputDecoration(
-                  // 14. [변경] 로그인 상태에 따라 힌트 텍스트 변경
+                  // 로그인 상태에 따라 힌트 텍스트 변경
                   hintText: isLoggedIn ? '새 메모 추가...' : '로그인이 필요합니다.',
                   border: OutlineInputBorder(),
                 ),
                 maxLines: 1,
-                enabled: isLoggedIn, // 👈 로그인 안 했으면 비활성화
+                enabled: isLoggedIn, // 로그인 안 했으면 비활성화
               ),
             ),
             const SizedBox(width: 8),
             IconButton(
               icon: Icon(Icons.add_circle, color: isLoggedIn ? Colors.brown : Colors.grey),
               iconSize: 40,
-              onPressed: isLoggedIn ? _addNewMemo : null, // 👈 로그인 안 했으면 비활성화
+              onPressed: isLoggedIn ? _addNewMemo : null, // 로그인 안 했으면 비활성화
             ),
           ],
         ),
